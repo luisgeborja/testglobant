@@ -26,17 +26,19 @@ To ensure this exercise runs smoothly, follow these steps:
 
 5. **Data Loading and Execution:**
    - I Upload the data inside the application folder.
+   
    ![alt text](Images/data.png)
+   
    - Use the script in the root directory. With the virtual environment activated, execute the command: `python3 load_data.py`.
    - The script should execute correctly and display batch transaction inserts. Refer to the provided image for a demonstration of the script execution.
    ![alt text](Images/globant_diagram.png)
 
-6. **Table Design:**
+7. **Table Design:**
    - The final table design is depicted in the image below.
    ![alt text](Images/script_execution.png)
 
 
-7. **Endpoint:**
+8. **Endpoint:**
    - For accessing the information on the specified endpoints, it's essential to initialize the server by executing the command: `python manage.py runserver`. After the server starts, visit the following URLs:
 
       - [Quarters Endpoint](http://127.0.0.1:8000/quarters/)
