@@ -14,12 +14,15 @@ max_row = 1000
 
 for file in files_to_load:
     if file == 'departments.csv':
+        # Define columns for the Departments CSV file
         cols = ["department"]
         type_cols = {"department": str}
     elif file == 'jobs.csv':
+        # Define columns for the Departments CSV file
         cols = ["job"]
         type_cols = {"job": str}
     else:
+        # Define columns for the Departments CSV file
         cols = ["name", "hiredate", "department_id", "job_id"]
         type_cols = {"name": str, "hiredate": str, "department_id": float, "job_id": float}
 
@@ -43,7 +46,7 @@ for file in files_to_load:
                 # Create Jobs instances
                 job = Jobs.objects.create(job=row["job"])
             else:
-                # Create HiredEmployees instances and link with Departments and Jobs
+                # Create instances for HiredEmployees and associate them with Departments and Jobs
                 # Assume 'hiredate' column contains date and time in ISO format
                 # Convert to string
                 hiredate_iso = str(row["hiredate"])

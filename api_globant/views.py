@@ -8,6 +8,7 @@ def quarters(request):
     Retrieves the number of employees hired per quarter for each job and department in 2021.
     Returns JSON response.
     """
+    # Fetch employees hired per quarter for each department and job in 2021
     employees_by_quarter = HiredEmployees.objects.filter(
         hiredate__year=2021,
         hiredate__isnull=False,
@@ -24,9 +25,6 @@ def quarters(request):
         job_name=F('job_id__job'),
         quarter_name=F('quarter')
     ).annotate(total_employees=Count('id')).order_by('department_id__department', 'job_id__job', 'quarter')
-    
-    for employee_data in employees_by_quarter:
-        print(employee_data)
 
     response = list(employees_by_quarter)
     return JsonResponse(response, safe=False, status=200)
@@ -36,6 +34,7 @@ def number_hires(request):
     Retrieves the average count of employees hired by department in 2021 and the departments with above-average hiring.
     Returns JSON response.
     """
+    # Calculate the average count of employees hired by department in 2021
     average_employees = HiredEmployees.objects.filter(
         hiredate__year=2021
     ).values('department_id').annotate(
@@ -44,7 +43,7 @@ def number_hires(request):
         average=Avg('employee_count', output_field=FloatField())
     )['average']
 
-    # Obtener los departamentos con más empleados que el promedio
+    # Fetch departments with more employees hired than the average
     departments_above_average = HiredEmployees.objects.filter(
         hiredate__year=2021,
         hiredate__isnull=False,
@@ -54,7 +53,7 @@ def number_hires(request):
         employee_count=Count('id')
     ).filter(employee_count__gt=average_employees).order_by('-employee_count')
 
-    # Listar IDs, nombres y número de empleados contratados por cada departamento
+    # List IDs, names, and total employees hired for each department
     result = departments_above_average.values(
         'department_id__id',
         'department_id__department'
@@ -62,10 +61,7 @@ def number_hires(request):
         total_employees=Count('id')
     )
 
-    for data in result:
-        print(f"Department ID: {data['department_id__id']}, Department Name: {data['department_id__department']}, Number of Employees: {data['total_employees']}")
-
-    # Lista para almacenar los datos
+    # Prepare the data into a list
     data = [
         {
             'department_id': entry['department_id__id'],
@@ -75,13 +71,4 @@ def number_hires(request):
         for entry in result
     ]
     
-    """for entry in result:
-        department_id = entry['department_id__id']
-        department_name = entry['department_id__department']
-        total_employees = entry['total_employees']
-        data.append({
-            'department_id': department_id,
-            'department_name': department_name,
-            'total_employees': total_employees
-        })"""
     return JsonResponse(data, safe=False, status=200)
