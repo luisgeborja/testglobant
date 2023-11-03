@@ -36,6 +36,7 @@ To ensure this exercise runs smoothly, follow these steps:
 
 7. **Table Design:**
    - The final table design is depicted in the image below.
+   
    ![alt text](Images/globant_diagram.png)
 
 
@@ -48,9 +49,11 @@ To ensure this exercise runs smoothly, follow these steps:
      Upon accessing these URLs, you'll view the detailed results for each one:
 
 a. **Quarters Endpoint:**
+   
    ![Quarters Endpoint Result](Images/quarters.png)
    
 b. **Number Hires Endpoint:**
+   
    ![Number Hires Endpoint Result](Images/number_hires.png)
 
 
